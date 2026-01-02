@@ -20,7 +20,7 @@ http_host = "127.0.0.1"
 # Port for the backend.
 #
 # Env variable: RCH__HTTP_PORT
-http_port = 8080
+http_port = 8020
 
 # Shared secret between a trusted client and the backend, required in the
 # `x-reacher-secret` header of all incoming requests.
@@ -173,19 +173,19 @@ concurrency = 5
 To overwrite the EHLO/HELO name:
 
 ```bash
-docker run -e RCH__HELLO_NAME=my.company.com -p 8080:8080 reacherhq/backend:beta
+docker run -e RCH__HELLO_NAME=my.company.com -p 8020:8020 reacherhq/backend:beta
 ```
 
 To store all email verification results to a Postgres database:
 
 ```bash
-docker run -e RCH__STORAGE__POSTGRES__DB_URL="postgres://user:pass@mydomain.mycompany.com/my_db_name" -p 8080:8080 reacherhq/backend:beta
+docker run -e RCH__STORAGE__POSTGRES__DB_URL="postgres://user:pass@mydomain.mycompany.com/my_db_name" -p 8020:8020 reacherhq/backend:beta
 ```
 
 For advanced users, if you prefer to pass in the full [`backend_config.toml`](../../../backend/backend_config.toml) file instead of individual environment variable flags, run:
 
 ```bash
-docker run -e RUST_LOG=reacher=debug -v /path/to/local/backend_config.toml:./backend_config.toml -p 8080:8080 reacherhq/backend:beta
+docker run -e RUST_LOG=reacher=debug -v /path/to/local/backend_config.toml:./backend_config.toml -p 8020:8020 reacherhq/backend:beta
 ```
 
 We recommend passing in `-e RUST_LOG=reacher=debug`, at least on first run, as the debug logs will show the final configuration parsed by Reacher.

@@ -103,7 +103,7 @@ impl BackendConfig {
 			proxy: None,
 			overrides: OverridesConfig::default(),
 			http_host: "127.0.0.1".to_string(),
-			http_port: 8080,
+			http_port: 8020,
 			header_secret: None,
 			sentry_dsn: None,
 			worker: WorkerConfig::default(),

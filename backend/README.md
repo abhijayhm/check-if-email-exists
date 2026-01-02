@@ -22,10 +22,10 @@ The [Docker image](./Dockerfile) is hosted on Docker Hub: https://hub.docker.com
 To run it, run the following command:
 
 ```bash
-docker run -p 8080:8080 reacherhq/backend:latest
+docker run -p 8020:8020 reacherhq/backend:latest
 ```
 
-Then send a `POST http://localhost:8080/v0/check_email` request with the following body:
+Then send a `POST http://localhost:8020/v0/check_email` request with the following body:
 
 ```js
 {
@@ -60,4 +60,4 @@ $ cd check-if-email-exists/backend
 $ cargo run --release --bin reacher_backend
 ```
 
-The server will then be listening on `http://127.0.0.1:8080`.
+The server will then be listening on `http://127.0.0.1:8020`.

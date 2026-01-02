@@ -399,7 +399,7 @@ NGINX_HTTPS_PORT=443
 |----------|---------|-------------|
 | `RCH__BACKEND_NAME` | `reacher-backend` | Backend identifier |
 | `RCH__HTTP_HOST` | `0.0.0.0` | HTTP bind address (internal) |
-| `RCH__HTTP_PORT` | `8080` | HTTP port (internal) |
+| `RCH__HTTP_PORT` | `8020` | HTTP port (internal) |
 | `RCH_ENABLE_BULK` | `1` | Enable bulk API (required for bulk endpoints) |
 | `RCH__STORAGE__POSTGRES__DB_URL` | Auto-generated | PostgreSQL connection string |
 | `RCH__HELLO_NAME` | `localhost` | SMTP EHLO name |
@@ -520,7 +520,7 @@ docker-compose ps backend
 docker-compose logs backend
 
 # Test backend directly (bypass nginx)
-curl http://localhost:8080/v0/check_email -X POST \
+curl http://localhost:8020/v0/check_email -X POST \
   -H "Content-Type: application/json" \
   -d '{"to_email":"test@example.com"}'
 
@@ -563,7 +563,7 @@ sudo lsof -i :80
 sudo netstat -tulpn | grep :80
 
 # Change port in .env file
-NGINX_HTTP_PORT=8080
+NGINX_HTTP_PORT=8020
 ```
 
 ## Production Deployment Checklist

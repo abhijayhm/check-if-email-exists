@@ -29,7 +29,7 @@ The `DATABASE_URL` value should look like `postgres://<user>:<password>@<hostnam
 ```bash
 [2022-08-15T19:54:23Z INFO  reacher] Running Reacher v0.7.0
 [2022-08-15T19:54:23Z INFO  reacher] Bulk endpoints enabled.
-Server is listening on 0.0.0.0:8080.
+Server is listening on 0.0.0.0:8020.
 ```
 
 ## How does Bulk email verification work?

@@ -57,7 +57,7 @@ services:
     image: reacherhq/commercial-license-trial:v0.11.0
     container_name: test
     ports:
-      - "8080:8080"
+      - "8020:8020"
     environment:
       RCH__BACKEND_NAME: backend4-do
       RUST_LOG: reacher=info

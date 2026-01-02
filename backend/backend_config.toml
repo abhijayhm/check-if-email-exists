@@ -13,7 +13,7 @@ http_host = "127.0.0.1"
 # Port for the backend.
 #
 # Env variable: RCH__HTTP_PORT
-http_port = 8080
+http_port = 8020
 
 # Name to use during the EHLO/HELO command in the SMTP conversation.
 # Ideally, this should match the reverse DNS of the server's IP address.

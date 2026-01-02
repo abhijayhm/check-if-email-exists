@@ -32,7 +32,7 @@ You can also read more in [commercial-license-trial.md](licensing/commercial-lic
 1. Navigate to the **Commercial License Trial** tab of your Reacher Dashboard ([go there directly](https://app.reacher.email/en/dashboard/commercial_license)). You'll see a command to run Reacher's latest (v0.10) [Docker image](https://hub.docker.com/r/reacherhq/backend):
 
 ```bash
-docker run -e RCH__COMMERCIAL_LICENSE_TRIAL__API_TOKEN=<YOUR_UNIQUE_TOKEN> -p 8080:8080 reacherhq/commercial-license-trial:latest # v0.10
+docker run -e RCH__COMMERCIAL_LICENSE_TRIAL__API_TOKEN=<YOUR_UNIQUE_TOKEN> -p 8020:8020 reacherhq/commercial-license-trial:latest # v0.10
 ```
 
 Replace `<YOUR_UNIQUE_TOKEN>` with your unique API token shown in the dashboard.
@@ -57,7 +57,7 @@ Advanced users can also set additional [reacher-configuration-v0.10.md](reacher-
 <pre class="language-bash"><code class="lang-bash"><strong>curl -X POST \
 </strong>	-H'Content-Type: application/json' \
 	-d'{"to_email":"amaury@reacher.email"}' \
-	http://localhost:8080/v1/check_email
+	http://localhost:8020/v1/check_email
 </code></pre>
 
 Advanced users can pass additional configuration fields to the  [v1-check\_email.md](../advanced/openapi/v1-check_email.md "mention") endpoint.

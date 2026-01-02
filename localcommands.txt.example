@@ -154,7 +154,7 @@ docker logs reacher-backend | grep -i error
 docker logs reacher-postgres
 
 # Test backend directly (bypass nginx):
-curl http://localhost:8080/v0/check_email \
+curl http://localhost:8020/v0/check_email \
   -X POST \
   -H "Content-Type: application/json" \
   -d '{"to_email":"test@example.com"}'
