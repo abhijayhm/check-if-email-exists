@@ -13,3 +13,7 @@ hotmail.jpeg
 /test_suite/src/sensitive_fixtures/*.json
 run.sh
 .env
+localcommands.txt
+
+tmp.txt
+API.md

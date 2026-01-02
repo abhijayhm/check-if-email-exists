@@ -1,0 +1,196 @@
+# ============================================
+# Reacher Setup Commands - Step by Step
+# ============================================
+# 
+# INSTRUCTIONS:
+# 1. Copy this file to localcommands.txt: cp localcommands.txt.example localcommands.txt
+# 2. Follow the steps below in order
+# 3. This file contains the actual commands to run for setup
+#
+# ============================================
+# STEP 1: Create .env file with your sensitive data
+# ============================================
+# Copy the example .env file and edit it with your actual values:
+# cp .env.example .env
+# nano .env
+#
+# Make sure to set:
+# - POSTGRES_PASSWORD (generate with: openssl rand -base64 32)
+# - RCH__HEADER_SECRET (generate with: openssl rand -hex 32)
+# - RCH__HELLO_NAME (your domain)
+# - RCH__FROM_EMAIL (your email)
+
+# ============================================
+# STEP 2: Start all services
+# ============================================
+docker-compose up -d
+
+# ============================================
+# STEP 3: Verify services are running
+# ============================================
+docker-compose ps
+
+# Expected output should show:
+# - reacher-postgres (healthy)
+# - reacher-backend (running)
+# - reacher-nginx (running)
+
+# ============================================
+# STEP 4: Check logs to ensure everything started correctly
+# ============================================
+docker-compose logs -f
+
+# Press Ctrl+C to exit log view
+# Check for any errors in the logs
+
+# ============================================
+# STEP 5: Test the API
+# ============================================
+# Test single email verification:
+curl -X POST http://localhost/v0/check_email \
+  -H "Content-Type: application/json" \
+  -d '{"to_email":"test@example.com"}'
+
+# Test bulk API - Submit a job:
+curl -X POST http://localhost/v0/bulk \
+  -H "Content-Type: application/json" \
+  -d '{
+    "input_type": "array",
+    "input": [
+      "test1@example.com",
+      "test2@example.com",
+      "test3@example.com"
+    ]
+  }'
+
+# If you set RCH__HEADER_SECRET, add this header:
+# -H "x-reacher-secret: YOUR_SECRET_FROM_ENV"
+
+# ============================================
+# STEP 6: Check bulk job status
+# ============================================
+# Replace 1 with the job_id from the previous step:
+curl http://localhost/v0/bulk/1
+
+# ============================================
+# STEP 7: Get bulk job results
+# ============================================
+# Replace 1 with your job_id:
+curl http://localhost/v0/bulk/1/results
+
+# Or download as CSV:
+curl "http://localhost/v0/bulk/1/results?format=csv" > results.csv
+
+# ============================================
+# Common Operations
+# ============================================
+
+# View logs from all services:
+docker-compose logs -f
+
+# View logs from specific service:
+docker-compose logs -f backend
+docker-compose logs -f postgres
+docker-compose logs -f nginx
+
+# Restart a service:
+docker-compose restart backend
+
+# Stop all services:
+docker-compose down
+
+# Stop and remove volumes (WARNING: deletes database):
+docker-compose down -v
+
+# ============================================
+# Database Operations
+# ============================================
+
+# Connect to PostgreSQL:
+docker exec -it reacher-postgres psql -U reacher -d reacher_db
+
+# List all tables:
+docker exec -it reacher-postgres psql -U reacher -d reacher_db -c "\dt"
+
+# Backup database:
+docker exec reacher-postgres pg_dump -U reacher reacher_db > backup_$(date +%Y%m%d_%H%M%S).sql
+
+# Restore database from backup:
+docker exec -i reacher-postgres psql -U reacher reacher_db < backup.sql
+
+# Check database size:
+docker exec reacher-postgres psql -U reacher -d reacher_db -c "SELECT pg_size_pretty(pg_database_size('reacher_db'));"
+
+# ============================================
+# Nginx Operations
+# ============================================
+
+# Test Nginx configuration:
+docker exec reacher-nginx nginx -t
+
+# Reload Nginx configuration (after editing nginx.conf):
+docker exec reacher-nginx nginx -s reload
+
+# View Nginx logs:
+docker logs -f reacher-nginx
+
+# ============================================
+# Troubleshooting Commands
+# ============================================
+
+# Check if services are running:
+docker-compose ps
+
+# Check backend environment variables:
+docker exec reacher-backend env | grep RCH
+
+# Test database connection:
+docker exec reacher-postgres psql -U reacher -d reacher_db -c "SELECT 1;"
+
+# Check backend logs for errors:
+docker logs reacher-backend | grep -i error
+
+# Check PostgreSQL logs:
+docker logs reacher-postgres
+
+# Test backend directly (bypass nginx):
+curl http://localhost:8080/v0/check_email \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"to_email":"test@example.com"}'
+
+# Check what's using port 80:
+sudo lsof -i :80
+# or
+sudo netstat -tulpn | grep :80
+
+# ============================================
+# Production Setup Checklist
+# ============================================
+# Run these commands before going to production:
+#
+# 1. Generate secure passwords:
+#    openssl rand -base64 32  # For POSTGRES_PASSWORD
+#    openssl rand -hex 32     # For RCH__HEADER_SECRET
+#
+# 2. Update .env file with secure values
+#
+# 3. Set up SSL certificates:
+#    mkdir -p nginx/ssl
+#    # Place your cert.pem and key.pem in nginx/ssl/
+#
+# 4. Uncomment HTTPS server block in nginx/nginx.conf
+#
+# 5. Configure firewall:
+#    sudo ufw allow 80/tcp
+#    sudo ufw allow 443/tcp
+#    sudo ufw deny 5432/tcp  # Don't expose PostgreSQL
+#
+# 6. Test the setup:
+#    docker-compose up -d
+#    docker-compose ps
+#    curl http://localhost/v0/check_email -X POST -H "Content-Type: application/json" -d '{"to_email":"test@example.com"}'
+#
+# 7. Set up automated backups (add to crontab):
+#    crontab -e
+#    # Add: 0 2 * * * cd /path/to/check-if-email-exists && docker exec reacher-postgres pg_dump -U reacher reacher_db | gzip > backups/backup_$(date +\%Y\%m\%d).sql.gz
