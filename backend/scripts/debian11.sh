@@ -75,7 +75,7 @@ docker run -d \
     -e RCH__FROM_EMAIL=$RCH__FROM_EMAIL \
     -e RCH__HELLO_NAME=$RCH__HELLO_NAME \
     -e RCH__SMTP_TIMEOUT=$RCH__SMTP_TIMEOUT \
-    -p 80:8020 \
+    -p 8020:8020 \
     --name reacher_backend \
     reacherhq/backend:$RCH_VERSION
 

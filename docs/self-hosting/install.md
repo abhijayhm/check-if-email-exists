@@ -45,7 +45,7 @@ Starting ChromeDriver 124.0.6367.78 (a087f2dd364ddd58b9c016ef1bf563d2bc138711-re
 Only local connections are allowed.
 Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
 ChromeDriver was started successfully.
-2024-09-19T12:58:32.976589Z  INFO reacher: Server is listening host=0.0.0.0 port=80
+2024-09-19T12:58:32.976589Z  INFO reacher: Server is listening host=0.0.0.0 port=8020
 ```
 
 If you see an error message, such as `` Error: missing field `api_token` ``, double-check the `-e RCH__COMMERCIAL_LICENSE_TRIAL__API_TOKEN` flag you passed. If you see other errors, either try [debugging-reacher.md](debugging-reacher.md "mention") or send an email to [amaury@reacher.email](https://app.gitbook.com/u/F1LnsqPFtfUEGlcILLswbbp5cgk2 "mention").
