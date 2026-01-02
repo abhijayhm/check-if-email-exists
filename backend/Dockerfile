@@ -46,7 +46,7 @@ ENV RCH__HTTP_HOST=0.0.0.0
 # disable the worker by default.
 ENV RCH__WORKER__ENABLE=false
 
-EXPOSE 8010
+EXPOSE 8020
 
 # Remove entrypoint from parent Docker file
 # https://stackoverflow.com/questions/40122152/how-to-remove-entrypoint-from-parent-image-on-dockerfile

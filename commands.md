@@ -42,7 +42,7 @@ RCH__THROTTLE__MAX_REQUESTS_PER_HOUR=1000
 RCH__THROTTLE__MAX_REQUESTS_PER_DAY=10000
 
 # Nginx Configuration
-NGINX_HTTP_PORT=80
+NGINX_HTTP_PORT=8010
 NGINX_HTTPS_PORT=443
 EOF
 
@@ -378,7 +378,7 @@ RCH__THROTTLE__MAX_REQUESTS_PER_HOUR=1000
 RCH__THROTTLE__MAX_REQUESTS_PER_DAY=10000
 
 # Nginx Configuration
-NGINX_HTTP_PORT=80
+NGINX_HTTP_PORT=8010
 NGINX_HTTPS_PORT=443
 ```
 
@@ -430,7 +430,7 @@ NGINX_HTTPS_PORT=443
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `NGINX_HTTP_PORT` | `80` | HTTP port (host mapping) |
+| `NGINX_HTTP_PORT` | `8010` | HTTP port (host mapping) |
 | `NGINX_HTTPS_PORT` | `443` | HTTPS port (host mapping) |
 
 ## Security Considerations
@@ -475,7 +475,7 @@ curl -X POST http://localhost/v0/bulk \
 
 3. Update `.env` file:
    ```bash
-   NGINX_HTTP_PORT=80
+   NGINX_HTTP_PORT=8010
    NGINX_HTTPS_PORT=443
    ```
 
